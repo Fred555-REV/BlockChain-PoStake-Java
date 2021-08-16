@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class Block {
     private final Date timeStamp;
-    private String previousHash;
-    private String hash;
-    private String data;
+    private final String previousHash;
+    private final String hash;
+    private final String data;
     private String validator; // the address of the person that made this block
     private String signature; //the encrypted hash of the block, signed by the validator
 
@@ -23,9 +23,19 @@ public class Block {
 //        this.signature = signature;
     }
 
+    public String blockHash() {
+        return calculateHash(timeStamp, previousHash, data);
+    }
+
+//    static blockHash(block){
+//        //destructuring
+//        const { timestamp, lastHash, data } = block;
+//        return Block.hash(timestamp,lastHash,data);
+//    }
+
     public static String calculateHash(Date timeStamp, String previousHash, String data) {
         try {
-            return SHA3_256(timeStamp + previousHash + data);// add rest of variables for calc hash
+            return SHA3_256(timeStamp + previousHash + data);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -60,6 +70,14 @@ public class Block {
 
     public Date getTimeStamp() {
         return timeStamp;
+    }
+
+    public String getPreviousHash() {
+        return previousHash;
+    }
+
+    public String getHash() {
+        return hash;
     }
 
     @Override
