@@ -12,6 +12,12 @@ public class BlockChain {
         chain.add(Block.genesis());
     }
 
+    public Block addBlock(String data){
+        Block block = Block.createBlock(this.chain.get(this.chain.size()-1),data);
+        this.chain.add(block);
+        return block;
+    }
+
     @Override
     public String toString() {
         return "BlockChain{" +
